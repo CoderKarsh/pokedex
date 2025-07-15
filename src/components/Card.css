@@ -1,0 +1,23 @@
+.card {
+  background-color: white;
+  padding: 0.5rem 0.5rem;
+  position: relative;
+  color: black;
+  flex: 0 1 0;
+  aspect-ratio: 2/3;
+  min-width: 200px;
+  border-radius: 1rem;
+}
+
+.card img {
+  width: 90%;
+}
+
+.card span {
+  padding: 0.25rem 0.5rem;
+  background: grey;
+  font-size: 0.5rem;
+  color: white;
+  border-radius: 0.25rem;
+  margin-right: 0.25rem;
+}
