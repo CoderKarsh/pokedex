@@ -2,7 +2,10 @@ import "./Card.css";
 import { typeColors } from "../typeColors";
 export default function Card({ pokemonObject }) {
   return (
-    <div className="card">
+    <div
+      className="card"
+      style={{ backgroundColor: typeColors[pokemonObject.types[0].type.name] }}
+    >
       <img
         src={`${pokemonObject.sprites.front_default}`}
         alt={`Image of ${pokemonObject.name}`}
@@ -21,6 +24,7 @@ export default function Card({ pokemonObject }) {
           {type.type.name.toUpperCase()}
         </span>
       ))}
+      <span className="pokemon-no">#{pokemonObject.id}</span>
     </div>
   );
 }

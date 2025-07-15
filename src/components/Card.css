@@ -13,11 +13,29 @@
   width: 90%;
 }
 
+.card h2 {
+  font-family: "Jersey 10";
+  color: rgb(255, 255, 255);
+  font-size: 2.5rem;
+}
+
 .card span {
   padding: 0.25rem 0.5rem;
   background: grey;
-  font-size: 0.5rem;
+  font-size: 0.625rem;
   color: white;
   border-radius: 0.25rem;
   margin-right: 0.25rem;
+  font-weight: 600;
+  outline: 0.5px solid white;
+}
+
+.card .pokemon-no {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  background-color: inherit;
+  color: rgba(255, 255, 255, 0.664);
+  font-size: 0.875rem;
+  outline: 0px solid white;
 }

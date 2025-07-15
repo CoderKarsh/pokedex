@@ -4,9 +4,10 @@ import Card from "./components/Card";
 
 function App() {
   const [allPokemonData, setAllPokemonData] = useState([]);
-
+  const offset = 40;
+  const limit = 20;
   useEffect(() => {
-    fetch(`https://pokeapi.co/api/v2/pokemon/?limit=20`)
+    fetch(`https://pokeapi.co/api/v2/pokemon/?limit=${limit}&offset=${offset}`)
       .then((res) => res.json())
       .then((fetchedData) => {
         const fetchPromises = fetchedData.results.map((result) =>
@@ -19,11 +20,17 @@ function App() {
       });
   }, []);
 
+  function handleHover() {}
+
   console.log(allPokemonData);
   return (
     <div className="card-container">
       {allPokemonData.map((pokemonData) => (
-        <Card key={pokemonData.id} pokemonObject={pokemonData} />
+        <Card
+          key={pokemonData.id}
+          pokemonObject={pokemonData}
+          handleHover={handleHover()}
+        />
       ))}
     </div>
   );
