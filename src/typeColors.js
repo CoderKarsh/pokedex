@@ -16,4 +16,5 @@ export const typeColors = {
   ground: "#DBB25D",
   rock: "#7365BA",
   steel: "#AFA3BA",
+  dragon: "#8366E9",
 };
