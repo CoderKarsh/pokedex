@@ -12,6 +12,7 @@ A PokéDex where you can filter Pokémon by their name, parts of their name, or 
 1. Batching promises via Promise.all() to lower re-renders.
 2. Searching without exact match
 3. Playing Audio
+4. CSS property (image-rendering)
 
 
 ## To-do:
