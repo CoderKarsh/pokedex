@@ -1,7 +1,9 @@
 import "./Card.css";
 import { typeColors } from "../typeColors";
 import { useRef } from "react";
+import { useState } from "react";
 export default function Card({ pokemonObject }) {
+  const [imgURL, setImgURL] = useState(pokemonObject.sprites.front_default);
   const audioRef = useRef(null);
 
   function truncateText(str) {
@@ -11,6 +13,14 @@ export default function Card({ pokemonObject }) {
   function handleClick() {
     audioRef.current.play();
   }
+  function handleHover() {
+    setImgURL(
+      `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/${pokemonObject.id}.gif`
+    );
+  }
+  function handleLeave() {
+    setImgURL(pokemonObject.sprites.front_default);
+  }
 
   return (
     <div
@@ -19,16 +29,19 @@ export default function Card({ pokemonObject }) {
         background: `${typeColors[`${pokemonObject.types[0].type.name}`]}cc`,
       }}
       onClick={handleClick}
+      onMouseEnter={handleHover}
+      onMouseLeave={handleLeave}
     >
       <audio src={pokemonObject.cries.latest} ref={audioRef}></audio>
       <div className="shine"></div>
       <div className="img-container">
         {pokemonObject.sprites.front_default !== null ? (
           <img
-            src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/${pokemonObject.id}.gif`}
-            onError={(e) =>
-              (e.currentTarget.src = `${pokemonObject.sprites.front_default}`)
-            }
+            src={imgURL}
+            onError={(e) => {
+              e.preventDefault();
+              e.currentTarget.src = `${pokemonObject.sprites.front_default}`;
+            }}
             alt={`Image of ${pokemonObject.name}`}
           />
         ) : (

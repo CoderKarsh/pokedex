@@ -4,67 +4,100 @@ import Card from "./components/Card";
 
 function App() {
   const [allPokemonData, setAllPokemonData] = useState([]);
-  const [offset, setOffset] = useState(0);
+  const [currentPokemonData, setCurrentPokemonData] = useState([]);
+  const [offset, setOffset] = useState(1);
   const [limit, setLimit] = useState(20);
   const [searchTerm, setSearchTerm] = useState("");
+  const [searchInput, setSearchInput] = useState("");
 
+  // Debounce search input
   useEffect(() => {
-    fetch(`https://pokeapi.co/api/v2/pokemon/?limit=${limit}&offset=${offset}`)
+    const debounceTimer = setTimeout(() => {
+      setSearchTerm(searchInput);
+    }, 300); // 300ms debounce time
+
+    return () => clearTimeout(debounceTimer);
+  }, [searchInput]);
+
+  // Loading Data
+  useEffect(() => {
+    // Fetch only first 20 for quick render
+    fetch(`https://pokeapi.co/api/v2/pokemon?limit=8&offset=0`)
       .then((res) => res.json())
-      .then((fetchedData) => {
-        const fetchPromises = fetchedData.results.map((result) =>
+      .then((initialData) => {
+        const promises = initialData.results.map((result) =>
           fetch(result.url).then((res) => res.json())
         );
-
-        Promise.all(fetchPromises).then((pokemonDataArray) =>
-          setAllPokemonData(
-            pokemonDataArray.filter((data) => data.name.includes(searchTerm))
-          )
-        );
+        Promise.all(promises).then((data) => {
+          setCurrentPokemonData(data);
+          setAllPokemonData(data); // start with 20
+        });
       });
-  }, [limit, offset, searchTerm]);
 
-  console.log(allPokemonData);
+    // Background fetch for the full list
+    fetch(`https://pokeapi.co/api/v2/pokemon?limit=1302&offset=0`)
+      .then((res) => res.json())
+      .then((fullData) => {
+        const promises = fullData.results.map((result) =>
+          fetch(result.url).then((res) => res.json())
+        );
+        Promise.all(promises).then((fullPokemonData) => {
+          setAllPokemonData(fullPokemonData);
+        });
+      });
+  }, []);
+
+  // Filtering
+  useEffect(() => {
+    if (searchTerm !== "" || searchTerm.trim() !== "") {
+      setCurrentPokemonData(
+        allPokemonData.filter((data) =>
+          data.name.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+      );
+    } else {
+      const sliced = allPokemonData.slice(offset - 1, offset + limit - 1);
+      setCurrentPokemonData(sliced.filter(Boolean));
+    }
+  }, [allPokemonData, offset, limit, searchTerm]);
+
   function handleSubmit(formData) {
-    const formOffset = formData.get("offset-input");
-    const formLimit = formData.get("limit-input");
+    const formOffset = parseInt(formData.get("offset-input"), 10);
+    const formLimit = parseInt(formData.get("limit-input"), 10);
     const formName = formData.get("name-input");
 
-    if (formName !== "") {
-      setSearchTerm(formName.trim());
-      setLimit(1302);
-      setOffset(0);
-    } else {
+    if (formName !== null && formName.trim() !== "") {
       setSearchTerm(formName);
-      setLimit(20);
-      setOffset(0);
+      setLimit(1302);
+      setOffset(1);
+    } else {
+      setSearchTerm("");
+      setLimit(isNaN(formLimit) ? 20 : formLimit);
+      setOffset(isNaN(formOffset) ? 1 : formOffset);
     }
 
-    formOffset !== ""
-      ? formOffset > 0
-        ? setOffset(formOffset - 1)
-        : alert("Offset should be 1 or more")
-      : null;
-    formLimit
-      ? formLimit > 0
-        ? setLimit(formLimit)
-        : alert("No. of Cards should be 1 or more")
-      : null;
+    if (formOffset <= 0) {
+      alert("Offset should be 1 or more");
+    }
+    if (formLimit <= 0) {
+      alert("No. of Cards should be 1 or more");
+    }
   }
+
   return (
     <>
       <h1>PokéDex</h1>
+      <div className="input-label-container">
+        <label htmlFor="name-input">Name: </label>
+        <input
+          type="text"
+          name="name-input"
+          id="name-input"
+          placeholder="Charizard"
+          onChange={(e) => setSearchInput(e.target.value)}
+        />
+      </div>
       <form action={handleSubmit}>
-        <div className="input-label-container">
-          <label htmlFor="name-input">Name: </label>
-          <input
-            type="text"
-            name="name-input"
-            id="name-input"
-            placeholder="Charizard"
-          />
-        </div>
-
         <div className="input-label-container">
           <label htmlFor="offset-input">Offset: </label>
           <input
@@ -89,7 +122,7 @@ function App() {
         <button type="submit">Filter Pokemon</button>
       </form>
       <div className="card-container">
-        {allPokemonData.map((pokemonData) => (
+        {currentPokemonData.map((pokemonData) => (
           <Card key={pokemonData.id} pokemonObject={pokemonData} />
         ))}
       </div>

@@ -25,11 +25,11 @@ form {
   margin-bottom: 2.5rem;
 }
 
-form label {
+label {
   margin-right: 0.25rem;
 }
 
-form input {
+input {
   background-color: inherit;
   border: none;
   outline: 1px solid rgb(201, 201, 201);
@@ -38,7 +38,7 @@ form input {
   border-radius: 0.25rem;
 }
 
-form input:focus {
+input:focus {
   outline: 1px solid rgb(105, 105, 105);
 }
 
