@@ -39,8 +39,9 @@
 }
 
 .card img {
+  margin-top: 2rem;
   image-rendering: pixelated;
-  width: 90%;
+  height: 50%;
 }
 
 .card h2 {

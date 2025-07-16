@@ -16,7 +16,7 @@ export default function Card({ pokemonObject }) {
     <div
       className="card"
       style={{
-        backgroundColor: typeColors[`${pokemonObject.types[0].type.name}Bg`],
+        background: `${typeColors[`${pokemonObject.types[0].type.name}`]}cc`,
       }}
       onClick={handleClick}
     >
@@ -24,12 +24,15 @@ export default function Card({ pokemonObject }) {
       <div className="shine"></div>
       {pokemonObject.sprites.front_default !== null ? (
         <img
-          src={`${pokemonObject.sprites.front_default}`}
+          src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/${pokemonObject.id}.gif`}
+          onError={(e) =>
+            (e.currentTarget.src = `${pokemonObject.sprites.front_default}`)
+          }
           alt={`Image of ${pokemonObject.name}`}
         />
       ) : (
         <img
-          src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/0.png"
+          src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/1.gif"
           alt={`Image not found`}
         />
       )}
