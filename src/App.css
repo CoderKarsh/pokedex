@@ -18,9 +18,10 @@ h1 {
 
 form {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  align-content: flex-start;
   gap: 2rem;
-
   margin-bottom: 2.5rem;
 }
 
@@ -46,4 +47,10 @@ form button {
   border: none;
   border-radius: 0.25rem;
   cursor: pointer;
+}
+
+@media only screen and (max-width: 600px) {
+  form {
+    gap: 1rem;
+  }
 }

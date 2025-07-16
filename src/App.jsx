@@ -74,7 +74,7 @@ function App() {
           />
         </div>
         <div className="input-label-container">
-          <label htmlFor="limit-input">No. of Cards: </label>
+          <label htmlFor="limit-input">Cards: </label>
           <input
             type="number"
             name="limit-input"
