@@ -22,20 +22,22 @@ export default function Card({ pokemonObject }) {
     >
       <audio src={pokemonObject.cries.latest} ref={audioRef}></audio>
       <div className="shine"></div>
-      {pokemonObject.sprites.front_default !== null ? (
-        <img
-          src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/${pokemonObject.id}.gif`}
-          onError={(e) =>
-            (e.currentTarget.src = `${pokemonObject.sprites.front_default}`)
-          }
-          alt={`Image of ${pokemonObject.name}`}
-        />
-      ) : (
-        <img
-          src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/1.gif"
-          alt={`Image not found`}
-        />
-      )}
+      <div className="img-container">
+        {pokemonObject.sprites.front_default !== null ? (
+          <img
+            src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/${pokemonObject.id}.gif`}
+            onError={(e) =>
+              (e.currentTarget.src = `${pokemonObject.sprites.front_default}`)
+            }
+            alt={`Image of ${pokemonObject.name}`}
+          />
+        ) : (
+          <img
+            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/1.gif"
+            alt={`Image not found`}
+          />
+        )}
+      </div>
 
       <h2 style={{ overflow: "hidden", textOverflow: "ellipsis" }}>
         {truncateText(
