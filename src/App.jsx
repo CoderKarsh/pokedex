@@ -36,6 +36,8 @@ function App() {
       setOffset(0);
     } else {
       setSearchTerm(formName);
+      setLimit(20);
+      setOffset(0);
     }
 
     formOffset !== ""
