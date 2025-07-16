@@ -18,7 +18,7 @@ h1 {
 
 form {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   flex-wrap: wrap;
   align-content: flex-start;
   gap: 2rem;
@@ -28,7 +28,6 @@ form {
 form label {
   margin-right: 0.25rem;
 }
-
 
 form input {
   background-color: inherit;
