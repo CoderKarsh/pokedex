@@ -22,7 +22,6 @@ function App() {
 
   // Loading Data
   useEffect(() => {
-    // Background fetch for the full list
     fetch(`https://pokeapi.co/api/v2/pokemon?limit=1302&offset=0`)
       .then((res) => res.json())
       .then((fullData) => {
@@ -35,7 +34,7 @@ function App() {
       });
   }, []);
 
-  // Filtering
+  // Filtering & Searching
   useEffect(() => {
     if (searchTerm !== "" || searchTerm.trim() !== "") {
       setCurrentPokemonData(
