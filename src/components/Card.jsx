@@ -22,10 +22,18 @@ export default function Card({ pokemonObject }) {
     >
       <audio src={pokemonObject.cries.latest} ref={audioRef}></audio>
       <div className="shine"></div>
-      <img
-        src={`${pokemonObject.sprites.front_default}`}
-        alt={`Image of ${pokemonObject.name}`}
-      />
+      {pokemonObject.sprites.front_default !== null ? (
+        <img
+          src={`${pokemonObject.sprites.front_default}`}
+          alt={`Image of ${pokemonObject.name}`}
+        />
+      ) : (
+        <img
+          src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/0.png"
+          alt={`Image not found`}
+        />
+      )}
+
       <h2 style={{ overflow: "hidden", textOverflow: "ellipsis" }}>
         {truncateText(
           pokemonObject.name.charAt(0).toUpperCase() +
