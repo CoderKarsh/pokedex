@@ -33,7 +33,7 @@ export default function Card({ pokemonObject }) {
           />
         ) : (
           <img
-            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/1.gif"
+            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/0.png"
             alt={`Image not found`}
           />
         )}
