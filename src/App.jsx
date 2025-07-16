@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import "./App.css";
 import Card from "./components/Card";
+import { initialData } from "../initialData.js";
 
 function App() {
-  const [allPokemonData, setAllPokemonData] = useState([]);
-  const [currentPokemonData, setCurrentPokemonData] = useState([]);
+  const [allPokemonData, setAllPokemonData] = useState(initialData);
+  const [currentPokemonData, setCurrentPokemonData] = useState(initialData);
   const [offset, setOffset] = useState(1);
   const [limit, setLimit] = useState(20);
   const [searchTerm, setSearchTerm] = useState("");
@@ -21,19 +22,6 @@ function App() {
 
   // Loading Data
   useEffect(() => {
-    // Fetch only first 20 for quick render
-    fetch(`https://pokeapi.co/api/v2/pokemon?limit=8&offset=0`)
-      .then((res) => res.json())
-      .then((initialData) => {
-        const promises = initialData.results.map((result) =>
-          fetch(result.url).then((res) => res.json())
-        );
-        Promise.all(promises).then((data) => {
-          setCurrentPokemonData(data);
-          setAllPokemonData(data); // start with 20
-        });
-      });
-
     // Background fetch for the full list
     fetch(`https://pokeapi.co/api/v2/pokemon?limit=1302&offset=0`)
       .then((res) => res.json())
@@ -84,6 +72,7 @@ function App() {
     }
   }
 
+  console.log(currentPokemonData);
   return (
     <>
       <h1>PokéDex</h1>
