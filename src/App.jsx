@@ -87,40 +87,42 @@ function App() {
   return (
     <>
       <h1>PokéDex</h1>
-      <div className="input-label-container">
-        <label htmlFor="name-input">Name: </label>
-        <input
-          type="text"
-          name="name-input"
-          id="name-input"
-          placeholder="Charizard"
-          onChange={(e) => setSearchInput(e.target.value)}
-        />
-      </div>
-      <form action={handleSubmit}>
+      <div className="input-container">
         <div className="input-label-container">
-          <label htmlFor="offset-input">Offset: </label>
+          <label htmlFor="name-input">Name: </label>
           <input
-            type="number"
-            name="offset-input"
-            id="offset-input"
-            // defaultValue={1}
-            placeholder="1"
+            type="text"
+            name="name-input"
+            id="name-input"
+            placeholder="Charizard"
+            onChange={(e) => setSearchInput(e.target.value)}
           />
         </div>
-        <div className="input-label-container">
-          <label htmlFor="limit-input">Cards: </label>
-          <input
-            type="number"
-            name="limit-input"
-            id="limit-input"
-            // defaultValue={20}
-            placeholder="20"
-          />
-        </div>
+        <form action={handleSubmit}>
+          <div className="input-label-container">
+            <label htmlFor="offset-input">Offset: </label>
+            <input
+              type="number"
+              name="offset-input"
+              id="offset-input"
+              // defaultValue={1}
+              placeholder="1"
+            />
+          </div>
+          <div className="input-label-container">
+            <label htmlFor="limit-input">Cards: </label>
+            <input
+              type="number"
+              name="limit-input"
+              id="limit-input"
+              // defaultValue={20}
+              placeholder="20"
+            />
+          </div>
 
-        <button type="submit">Filter Pokemon</button>
-      </form>
+          <button type="submit">Filter Pokemon</button>
+        </form>
+      </div>
       <div className="card-container">
         {currentPokemonData.map((pokemonData) => (
           <Card key={pokemonData.id} pokemonObject={pokemonData} />
