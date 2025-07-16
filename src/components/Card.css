@@ -9,7 +9,7 @@
   min-width: 200px;
   border-radius: 1rem;
   overflow: hidden;
-  transition: 0.15s;
+  transition: 0.15s cubic-bezier(0.68, -0.01, 0.34, 1);
 }
 
 .card .shine {
@@ -62,8 +62,8 @@
 
 .card .pokemon-no {
   position: absolute;
-  top: 3px;
-  right: 3px;
+  top: 0px;
+  right: -3px;
   background-color: inherit;
   color: rgba(255, 255, 255, 0.664);
   font-size: 0.875rem;

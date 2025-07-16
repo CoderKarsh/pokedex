@@ -17,32 +17,12 @@ function App() {
         );
 
         Promise.all(fetchPromises).then((pokemonDataArray) =>
-          setAllPokemonData(pokemonDataArray)
-        );
-      });
-  }, [limit, offset]);
-
-  useEffect(() => {
-    fetch(`https://pokeapi.co/api/v2/pokemon/?limit=${1302}&offset=${0}`)
-      .then((res) => res.json())
-      .then((fetchedData) => {
-        const fetchPromises = fetchedData.results.map((result) =>
-          fetch(result.url).then((res) => res.json())
-        );
-
-        Promise.all(fetchPromises).then((pokemonDataArray) =>
           setAllPokemonData(
-            pokemonDataArray.filter((data) =>
-              data.name.includes(searchTerm.toLowerCase())
-            )
+            pokemonDataArray.filter((data) => data.name.includes(searchTerm))
           )
         );
       });
-  }, [searchTerm]);
-
-  console.log();
-
-  function handleHover() {}
+  }, [limit, offset, searchTerm]);
 
   console.log(allPokemonData);
   function handleSubmit(formData) {
@@ -50,7 +30,13 @@ function App() {
     const formLimit = formData.get("limit-input");
     const formName = formData.get("name-input");
 
-    formName !== "" ? setSearchTerm(formName) : null;
+    if (formName !== "") {
+      setSearchTerm(formName.trim());
+      setLimit(1302);
+      setOffset(0);
+    } else {
+      setSearchTerm(formName);
+    }
 
     formOffset !== ""
       ? formOffset > 0
@@ -65,14 +51,14 @@ function App() {
   }
   return (
     <>
+      <h1>PokéDex</h1>
       <form action={handleSubmit}>
         <div className="input-label-container">
-          <label htmlFor="name-input">Offset: </label>
+          <label htmlFor="name-input">Name: </label>
           <input
             type="text"
             name="name-input"
             id="name-input"
-            // defaultValue={1}
             placeholder="Charizard"
           />
         </div>
@@ -102,11 +88,7 @@ function App() {
       </form>
       <div className="card-container">
         {allPokemonData.map((pokemonData) => (
-          <Card
-            key={pokemonData.id}
-            pokemonObject={pokemonData}
-            handleHover={handleHover()}
-          />
+          <Card key={pokemonData.id} pokemonObject={pokemonData} />
         ))}
       </div>
     </>

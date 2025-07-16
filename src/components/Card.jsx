@@ -1,8 +1,15 @@
 import "./Card.css";
 import { typeColors } from "../typeColors";
+import { useRef } from "react";
 export default function Card({ pokemonObject }) {
+  const audioRef = useRef(null);
+
   function truncateText(str) {
-    return str.length > 9 ? str.substring(0, 8) + "..." : str;
+    return str.length > 10 ? str.substring(0, 7) + "..." : str;
+  }
+
+  function handleClick() {
+    audioRef.current.play();
   }
 
   return (
@@ -11,7 +18,9 @@ export default function Card({ pokemonObject }) {
       style={{
         backgroundColor: typeColors[`${pokemonObject.types[0].type.name}Bg`],
       }}
+      onClick={handleClick}
     >
+      <audio src={pokemonObject.cries.latest} ref={audioRef}></audio>
       <div className="shine"></div>
       <img
         src={`${pokemonObject.sprites.front_default}`}
