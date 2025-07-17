@@ -1,16 +1,26 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import "./App.css";
-import Card from "./components/Card";
 import SearchBar from "./components/SearchBar.jsx";
+import CardContainer from "./components/CardContainer.jsx";
 import { initialData } from "../initialData.js";
 
 function App() {
   const [allPokemonData, setAllPokemonData] = useState(initialData);
-  const [currentPokemonData, setCurrentPokemonData] = useState(initialData);
   const [offset, setOffset] = useState(1);
   const [limit, setLimit] = useState(20);
   const [searchTerm, setSearchTerm] = useState("");
 
+  const currentPokemonData = useMemo(() => {
+    if (searchTerm.trim() !== "") {
+      return allPokemonData.filter((data) =>
+        data.name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    } else {
+      return allPokemonData
+        .slice(offset - 1, offset + limit - 1)
+        .filter(Boolean);
+    }
+  }, [allPokemonData, offset, searchTerm, limit]);
   // Loading Data
   useEffect(() => {
     fetch(`https://pokeapi.co/api/v2/pokemon?limit=1302&offset=0`)
@@ -25,20 +35,6 @@ function App() {
       });
   }, []);
 
-  // Filtering & Searching
-  useEffect(() => {
-    if (searchTerm !== "" || searchTerm.trim() !== "") {
-      setCurrentPokemonData(
-        allPokemonData.filter((data) =>
-          data.name.toLowerCase().includes(searchTerm.toLowerCase())
-        )
-      );
-    } else {
-      const sliced = allPokemonData.slice(offset - 1, offset + limit - 1);
-      setCurrentPokemonData(sliced.filter(Boolean));
-    }
-  }, [allPokemonData, offset, limit, searchTerm]);
-
   console.log(currentPokemonData);
   return (
     <>
@@ -48,11 +44,7 @@ function App() {
         setOffset={setOffset}
         setSearchTerm={setSearchTerm}
       />
-      <div className="card-container">
-        {currentPokemonData.map((pokemonData) => (
-          <Card key={pokemonData.id} pokemonObject={pokemonData} />
-        ))}
-      </div>
+      <CardContainer pokemonDataList={currentPokemonData} />
     </>
   );
 }
