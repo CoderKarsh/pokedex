@@ -4,7 +4,7 @@
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(34, 34, 34, 0.87);
+  color: rgba(34, 34, 34);
   background-color: #f0f0f0;
 
   font-synthesis: none;
@@ -20,3 +20,5 @@
   box-sizing: border-box;
   font-family: "Jersey 10";
 }
+
+

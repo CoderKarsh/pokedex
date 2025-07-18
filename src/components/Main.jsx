@@ -1,6 +1,7 @@
 import { useState, useMemo } from "react";
 import CardContainer from "./CardContainer.jsx";
 import SearchBar from "./SearchBar.jsx";
+import Spinner from "./Spinner.jsx";
 import "../styles/Main.css";
 
 function Main({ allPokemonData }) {

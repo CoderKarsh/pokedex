@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { initialData } from "../../initialData.js";
+import Spinner from "./Spinner.jsx";
 
 function PokemonDataFetcher({ children }) {
   const [data, setData] = useState(initialData);
@@ -22,7 +23,7 @@ function PokemonDataFetcher({ children }) {
   return (
     <>
       {children(data)}
-      {isLoading && <p>Loading...</p>}
+      {isLoading && <Spinner />}
     </>
   );
 }
