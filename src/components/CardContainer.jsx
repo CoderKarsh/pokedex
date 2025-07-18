@@ -1,5 +1,6 @@
 import Card from "./Card";
-import {memo} from 'react'
+import "../styles/CardContainer.css";
+import { memo } from "react";
 
 function CardContainer({ pokemonDataList }) {
   return (
@@ -11,4 +12,4 @@ function CardContainer({ pokemonDataList }) {
   );
 }
 
-export default memo(CardContainer)
+export default memo(CardContainer);

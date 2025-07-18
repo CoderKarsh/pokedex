@@ -5,56 +5,7 @@
   text-align: center;
 }
 
-h1 {
-  font-size: 4rem;
-  font-family: "Jersey 10";
-  margin-bottom: 1rem;
-}
-.input-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1rem;
-}
-.card-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1rem;
-}
 
-form {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  align-content: flex-start;
-  gap: 2rem;
-  margin-bottom: 2.5rem;
-}
-
-label {
-  margin-right: 0.25rem;
-}
-
-input {
-  background-color: inherit;
-  border: none;
-  outline: 1px solid rgb(201, 201, 201);
-  padding: 0.5rem 0.75rem;
-  color: rgb(48, 48, 48);
-  border-radius: 0.25rem;
-}
-
-input:focus {
-  outline: 1px solid rgb(105, 105, 105);
-}
-
-form button {
-  padding: 0.5rem 0.75rem;
-  border: none;
-  border-radius: 0.25rem;
-  cursor: pointer;
-}
 
 @media only screen and (max-width: 600px) {
   form {

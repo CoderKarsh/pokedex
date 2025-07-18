@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import "../styles/SearchBar.css";
 
 export default function SearchBar({ setSearchTerm, setLimit, setOffset }) {
   const [searchInput, setSearchInput] = useState("");
