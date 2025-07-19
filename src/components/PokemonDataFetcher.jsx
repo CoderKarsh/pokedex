@@ -2,13 +2,16 @@ import { useEffect, useState } from "react";
 import { initialData } from "../../initialData.js";
 import Spinner from "./Spinner.jsx";
 
+const BASE_URL = "https://pokeapi.co/api/v2/pokemon";
+
 function PokemonDataFetcher({ children }) {
   const [data, setData] = useState(initialData);
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     setIsLoading(true);
-    fetch(`https://pokeapi.co/api/v2/pokemon?limit=1302&offset=0`)
+    fetch(`${BASE_URL}?limit=1302&offset=0`)
       .then((res) => res.json())
+      // fullData only contains name and url for the pokemon in results array. Need to fetch again
       .then((fullData) => {
         const promises = fullData.results.map((result) =>
           fetch(result.url).then((res) => res.json())
