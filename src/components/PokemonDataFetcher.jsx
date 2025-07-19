@@ -11,8 +11,8 @@ function PokemonDataFetcher({ children }) {
     setIsLoading(true);
     fetch(`${BASE_URL}?limit=1302&offset=0`)
       .then((res) => res.json())
-      // fullData only contains name and url for the pokemon in results array. Need to fetch again
       .then((fullData) => {
+        // fullData only contains name and url for the pokemon in results array. Need to fetch again
         const promises = fullData.results.map((result) =>
           fetch(result.url).then((res) => res.json())
         );

@@ -1,7 +1,7 @@
 import "../styles/Spinner.css";
 
 function Spinner() {
-  return <div class="pokemon"></div>;
+  return <div className="pokemon"></div>;
 }
 
 export default Spinner;
