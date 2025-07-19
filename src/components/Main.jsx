@@ -24,8 +24,6 @@ function Main({ allPokemonData }) {
         .search(searchTerm)
         .map((data) => data.item)
         .slice(0, 10);
-      console.log(exactMatch.map((match) => match.name));
-      console.log(fuzzyMatch.map((match) => match.name));
       return [...new Set([...exactMatch, ...fuzzyMatch])];
     } else {
       return allPokemonData
