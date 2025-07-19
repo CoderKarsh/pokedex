@@ -33,7 +33,7 @@ function Main({ allPokemonData }) {
         .slice(offset - 1, offset + limit - 1)
         .filter(Boolean);
     }
-  }, [allPokemonData, offset, searchTerm, limit]);
+  }, [allPokemonData, offset, searchTerm, limit, fuse]);
   return (
     <>
       <h1>PokéDex</h1>
