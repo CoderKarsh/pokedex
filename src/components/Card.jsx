@@ -14,9 +14,13 @@ export default function Card({ pokemonObject }) {
     audioRef.current.play();
   }
   function handleHover() {
-    setImgURL(
-      `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/${pokemonObject.id}.gif`
-    );
+    pokemonObject.sprites.versions["generation-v"]["black-white"].animated
+      .front_default
+      ? setImgURL(
+          pokemonObject.sprites.versions["generation-v"]["black-white"].animated
+            .front_default
+        )
+      : null;
   }
   function handleLeave() {
     setImgURL(pokemonObject.sprites.front_default);

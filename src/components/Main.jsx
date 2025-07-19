@@ -31,6 +31,39 @@ function Main({ allPokemonData }) {
         .filter(Boolean);
     }
   }, [allPokemonData, offset, searchTerm, limit]);
+
+  console.log("hello>");
+  console.log(
+    currentPokemonData.map(
+      ({
+        name,
+        id,
+        types,
+        sprites: {
+          front_default,
+          versions: {
+            "generation-v": {
+              "black-white": { animated },
+            },
+          },
+        },
+        cries,
+      }) => ({
+        name,
+        id,
+        types,
+        sprites: {
+          front_default,
+          versions: {
+            "generation-v": {
+              "black-white": { animated: animated.front_default },
+            },
+          },
+        },
+        cries: cries.latest,
+      })
+    )
+  );
   return (
     <>
       <h1>PokéDex</h1>
