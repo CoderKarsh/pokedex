@@ -14,9 +14,8 @@ function Main({ allPokemonData }) {
   const [limit, setLimit] = useState(20);
   const [searchTerm, setSearchTerm] = useState("");
 
-  const fuse = new Fuse(allPokemonData, options);
-
   const currentPokemonData = useMemo(() => {
+    const fuse = new Fuse(allPokemonData, options);
     if (searchTerm.trim() !== "") {
       const exactMatch = allPokemonData.filter((data) =>
         data.name.toLowerCase().includes(searchTerm.trim().toLowerCase())
@@ -33,7 +32,7 @@ function Main({ allPokemonData }) {
         .slice(offset - 1, offset + limit - 1)
         .filter(Boolean);
     }
-  }, [allPokemonData, offset, searchTerm, limit, fuse]);
+  }, [allPokemonData, offset, searchTerm, limit]);
   return (
     <>
       <h1>PokéDex</h1>
