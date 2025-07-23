@@ -36,7 +36,11 @@ export default function Card({ pokemonObject }) {
       onMouseEnter={handleHover}
       onMouseLeave={handleLeave}
     >
-      <audio src={pokemonObject.cries.latest} ref={audioRef}></audio>
+      <audio
+        src={pokemonObject.cries.latest}
+        ref={audioRef}
+        preload="none"
+      ></audio>
       <div className="shine"></div>
       <div className="img-container">
         {pokemonObject.sprites.front_default !== null ? (
@@ -47,6 +51,7 @@ export default function Card({ pokemonObject }) {
               e.currentTarget.src = `${pokemonObject.sprites.front_default}`;
             }}
             alt={`Image of ${pokemonObject.name}`}
+            loading="lazy"
           />
         ) : (
           <img
