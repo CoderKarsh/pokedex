@@ -43,6 +43,7 @@ export default function Card({ pokemonObject }) {
         preload="none"
       ></audio>
       <div className="shine"></div>
+      <div className=""></div>
       <div className="img-container">
         {pokemonObject.sprites.front_default !== null ? (
           <img

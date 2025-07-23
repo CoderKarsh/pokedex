@@ -25,7 +25,7 @@ export default function SearchBar({ setSearchTerm, setLimit, setOffset }) {
       setOffset(1);
     } else {
       setSearchTerm("");
-      setLimit(isNaN(formLimit) ? 1302 : formLimit);
+      setLimit(isNaN(formLimit) ? 20 : formLimit);
       setOffset(isNaN(formOffset) ? 1 : formOffset);
     }
 

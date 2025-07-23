@@ -26,7 +26,6 @@ function Main({ allPokemonData, minimalPokemonData, fetchData }) {
   );
 
   useEffect(() => {
-    // fetchData(20, 100, ["pikachu"]);
     if (searchTerm.trim() !== "") {
       const exactMatch = minimalPokemonData
         .filter((data) =>
@@ -38,8 +37,7 @@ function Main({ allPokemonData, minimalPokemonData, fetchData }) {
         .map((result) => result.item.name)
         .slice(0, 10);
       const allMatches = [...new Set([...exactMatch, ...fuzzyMatch])];
-      console.log(allMatches);
-      fetchData(20, 0, [...new Set([...exactMatch, ...fuzzyMatch])]);
+      fetchData(20, 0, allMatches);
     } else {
       fetchData(limit, offset);
     }
