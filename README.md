@@ -12,9 +12,13 @@ A PokéDex where you can filter Pokémon by their name, parts of their name, or 
 1. Batching promises via Promise.all() to lower re-renders.
 2. Searching without exact match
 3. Playing Audio
-4. CSS property (image-rendering)
+4. A new CSS property (image-rendering)
 5. Debouncing Input
 6. Caching data
+7. Lazy loading images through attributes(loading = "lazy") 
+8. Lazy loading audio through attributes(preload = "none") 
+9. useMemo() and memo()
+10. Fuse library for fuzzy search
 
 
 ## To-do:
