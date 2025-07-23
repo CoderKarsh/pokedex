@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
-import { initialData } from "../../initialData.js";
 import Spinner from "./Spinner.jsx";
 
 const BASE_URL = "https://pokeapi.co/api/v2/pokemon";
 
 function PokemonDataFetcher({ children }) {
-  const [data, setData] = useState(initialData);
+  const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
