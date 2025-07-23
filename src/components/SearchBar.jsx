@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "../styles/SearchBar.css";
-import Button from "./Button"
+import Button from "./Button";
 
 export default function SearchBar({ setSearchTerm, setLimit, setOffset }) {
   const [searchInput, setSearchInput] = useState("");
@@ -37,10 +37,10 @@ export default function SearchBar({ setSearchTerm, setLimit, setOffset }) {
     }
   }
 
-  function handleReset() { 
-    setSearchInput("")
-    setLimit(20)
-    setOffset(1)
+  function handleReset() {
+    setSearchInput("");
+    setLimit(20);
+    setOffset(1);
   }
   return (
     <>
@@ -77,7 +77,7 @@ export default function SearchBar({ setSearchTerm, setLimit, setOffset }) {
             />
           </div>
           <Button type="submit">Filter Pokemon</Button>
-          <Button onClick={ handleReset }>Reset</Button>
+          <Button onClick={handleReset}>Reset</Button>
         </form>
       </div>
     </>

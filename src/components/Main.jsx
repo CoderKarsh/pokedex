@@ -1,6 +1,8 @@
 import { useState, useMemo } from "react";
 import CardContainer from "./CardContainer.jsx";
 import SearchBar from "./SearchBar.jsx";
+import Button from "./Button.jsx";
+import PaginationControls from "./PaginationControls.jsx";
 import Fuse from "fuse.js";
 import "../styles/Main.css";
 
@@ -49,6 +51,27 @@ function Main({ allPokemonData }) {
         setSearchTerm={setSearchTerm}
       />
       <CardContainer pokemonDataList={currentPokemonData} />
+      {searchTerm === "" ? (
+        <PaginationControls>
+          <Button
+            onClick={() => {
+              window.scrollTo(0, 0);
+              setOffset((prev) => Math.max(0, prev - limit));
+            }}
+          >
+            {"<-"}
+          </Button>
+
+          <Button
+            onClick={() => {
+              window.scrollTo(0, 0);
+              setOffset((prev) => Math.min(1300, prev + limit));
+            }}
+          >
+            {"->"}
+          </Button>
+        </PaginationControls>
+      ) : null}
     </>
   );
 }
