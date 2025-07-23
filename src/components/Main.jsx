@@ -13,7 +13,7 @@ const options = {
 
 function Main({ allPokemonData, minimalPokemonData, fetchData }) {
   const [offset, setOffset] = useState(1);
-  const [limit, setLimit] = useState(1);
+  const [limit, setLimit] = useState(20);
   const [searchTerm, setSearchTerm] = useState("");
 
   const fuseIndex = useMemo(
