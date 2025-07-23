@@ -8,25 +8,30 @@ function PokemonDataFetcher({ children }) {
   const [data, setData] = useState(initialData);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+
   useEffect(() => {
-    try {
+    const fetchResults = async () => {
       setIsLoading(true);
-      fetch(`${BASE_URL}?limit=1302&offset=0`)
-        .then((res) => res.json())
-        .then((fullData) => {
-          // fullData only contains name and url for the pokemon in results array. Need to fetch again
-          const promises = fullData.results.map((result) =>
-            fetch(result.url).then((res) => res.json())
-          );
-          Promise.all(promises).then((fullPokemonData) => {
-            setData(fullPokemonData);
-          });
+      try {
+        const response = await fetch(`${BASE_URL}?limit=1302&offset=0`);
+        const responseJSON = await response.json();
+        const results = responseJSON.results; // only has name and url for each pokemon
+
+        const resultsPromises = results.map(async (result) => {
+          const resultsJSON = await fetch(result.url);
+          return await resultsJSON.json();
         });
-    } catch (err) {
-      setError(err);
-    } finally {
-      setIsLoading(false);
-    }
+
+        const finalData = await Promise.all(resultsPromises);
+        setData(finalData);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchResults();
   }, []);
 
   return (
