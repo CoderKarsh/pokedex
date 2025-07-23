@@ -1,7 +1,8 @@
 import "../styles/Card.css";
 import { typeColors } from "../typeColors";
-import { useRef } from "react";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { Tooltip } from "react-tooltip";
+
 export default function Card({ pokemonObject }) {
   const [imgURL, setImgURL] = useState(pokemonObject.sprites.front_default);
   const audioRef = useRef(null);
@@ -61,12 +62,20 @@ export default function Card({ pokemonObject }) {
         )}
       </div>
 
-      <h2 style={{ overflow: "hidden", textOverflow: "ellipsis" }}>
+      <h2
+        data-tooltip-id={`${pokemonObject.id}`}
+        data-tooltip-content={
+          pokemonObject.name[0].toUpperCase() + pokemonObject.name.slice(1)
+        }
+        data-tooltip-place="bottom"
+        style={{ overflow: "hidden", textOverflow: "ellipsis" }}
+      >
         {truncateText(
           pokemonObject.name.charAt(0).toUpperCase() +
             pokemonObject.name.slice(1)
         )}
       </h2>
+      <Tooltip id={`${pokemonObject.id}`} />
       {pokemonObject.types.map((type, index) => (
         <span
           key={index}
