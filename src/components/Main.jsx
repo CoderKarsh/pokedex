@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import CardContainer from "./CardContainer.jsx";
 import SearchBar from "./SearchBar.jsx";
 import Button from "./Button.jsx";
@@ -11,36 +11,40 @@ const options = {
   keys: ["name"],
 };
 
-function Main({ allPokemonData }) {
+function Main({ allPokemonData, minimalPokemonData, fetchData }) {
   const [offset, setOffset] = useState(1);
-  const [limit, setLimit] = useState(20);
+  const [limit, setLimit] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
 
   const fuseIndex = useMemo(
-    () => Fuse.createIndex(["name"], allPokemonData),
-    [allPokemonData]
+    () => Fuse.createIndex(["name"], minimalPokemonData),
+    [minimalPokemonData]
   );
   const fuse = useMemo(
-    () => new Fuse(allPokemonData, options, fuseIndex),
-    [allPokemonData, fuseIndex]
+    () => new Fuse(minimalPokemonData, options, fuseIndex),
+    [minimalPokemonData, fuseIndex]
   );
 
-  const currentPokemonData = useMemo(() => {
+  useEffect(() => {
+    // fetchData(20, 100, ["pikachu"]);
     if (searchTerm.trim() !== "") {
-      const exactMatch = allPokemonData.filter((data) =>
-        data.name.toLowerCase().includes(searchTerm.trim().toLowerCase())
-      );
+      const exactMatch = minimalPokemonData
+        .filter((data) =>
+          data.name.toLowerCase().includes(searchTerm.trim().toLowerCase())
+        )
+        .map((data) => data.name);
       const fuzzyMatch = fuse
         .search(searchTerm)
-        .map((data) => data.item)
+        .map((result) => result.item.name)
         .slice(0, 10);
-      return [...new Set([...exactMatch, ...fuzzyMatch])];
+      const allMatches = [...new Set([...exactMatch, ...fuzzyMatch])];
+      console.log(allMatches);
+      fetchData(20, 0, [...new Set([...exactMatch, ...fuzzyMatch])]);
     } else {
-      return allPokemonData
-        .slice(offset - 1, offset + limit - 1)
-        .filter(Boolean);
+      fetchData(limit, offset);
     }
-  }, [allPokemonData, offset, searchTerm, limit, fuse]);
+    // Add dependencies that trigger fetch: searchTerm, offset, limit, fetchData, allPokemonData, fuse
+  }, [searchTerm, offset, limit, minimalPokemonData, fuse]);
 
   return (
     <>
@@ -50,7 +54,7 @@ function Main({ allPokemonData }) {
         setOffset={setOffset}
         setSearchTerm={setSearchTerm}
       />
-      <CardContainer pokemonDataList={currentPokemonData} />
+      <CardContainer pokemonDataList={allPokemonData} />
       {searchTerm === "" ? (
         <PaginationControls>
           <Button
