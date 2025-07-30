@@ -45,14 +45,13 @@ function Main({
         .map((result) => result.item.name)
         .slice(0, 10);
       const allMatches = [...new Set([...exactMatch, ...fuzzyMatch])];
-      // console.log(allMatches);
+      console.log(allMatches);
       fetchData(allMatches);
     } else {
       if (hasSearchedRef.current) resetData();
     }
     // Adding fetchData as dependency renders it a lot. Why?
   }, [searchTerm, minimalPokemonData, fuse]);
-
 
   return (
     <>

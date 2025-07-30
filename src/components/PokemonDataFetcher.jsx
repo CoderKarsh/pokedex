@@ -5,6 +5,7 @@ const BASE_URL = "https://pokeapi.co/api/v2/pokemon";
 function PokemonDataFetcher({ children }) {
   const [URL, setURL] = useState(BASE_URL);
   const [minimalData, setMinimalData] = useState([]);
+  // eslint-disable-next-line no-unused-vars
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);

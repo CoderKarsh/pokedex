@@ -8,7 +8,7 @@ export default function SearchBar({ setSearchTerm }) {
   useEffect(() => {
     const debounceTimer = setTimeout(() => {
       setSearchTerm(searchInput);
-    }, 300); // 300ms debounce time
+    }, 500); // 300ms debounce time
 
     return () => clearTimeout(debounceTimer);
   }, [searchInput, setSearchTerm]);
