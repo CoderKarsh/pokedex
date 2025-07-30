@@ -1,8 +1,8 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
+import InfiniteScroll from "react-infinite-scroll-component";
 import CardContainer from "./CardContainer.jsx";
 import SearchBar from "./SearchBar.jsx";
-import Button from "./Button.jsx";
-import PaginationControls from "./PaginationControls.jsx";
+import Spinner from "./Spinner.jsx";
 import Fuse from "fuse.js";
 import "../styles/Main.css";
 
@@ -11,22 +11,30 @@ const options = {
   keys: ["name"],
 };
 
-function Main({ allPokemonData, minimalPokemonData, fetchData }) {
-  const [offset, setOffset] = useState(1);
-  const [limit, setLimit] = useState(20);
+function Main({
+  allPokemonData,
+  minimalPokemonData,
+  fetchData,
+  URL,
+  resetData,
+}) {
   const [searchTerm, setSearchTerm] = useState("");
 
   const fuseIndex = useMemo(
     () => Fuse.createIndex(["name"], minimalPokemonData),
     [minimalPokemonData]
   );
+
   const fuse = useMemo(
     () => new Fuse(minimalPokemonData, options, fuseIndex),
     [minimalPokemonData, fuseIndex]
   );
 
+  const hasSearchedRef = useRef(false);
+
   useEffect(() => {
     if (searchTerm.trim() !== "") {
+      hasSearchedRef.current = true;
       const exactMatch = minimalPokemonData
         .filter((data) =>
           data.name.toLowerCase().includes(searchTerm.trim().toLowerCase())
@@ -37,43 +45,33 @@ function Main({ allPokemonData, minimalPokemonData, fetchData }) {
         .map((result) => result.item.name)
         .slice(0, 10);
       const allMatches = [...new Set([...exactMatch, ...fuzzyMatch])];
-      fetchData(20, 0, allMatches);
+      // console.log(allMatches);
+      fetchData(allMatches);
     } else {
-      fetchData(limit, offset);
+      if (hasSearchedRef.current) resetData();
     }
-    // Add dependencies that trigger fetch: searchTerm, offset, limit, fetchData, allPokemonData, fuse
-  }, [searchTerm, offset, limit, minimalPokemonData, fuse]);
+    // Adding fetchData as dependency renders it a lot. Why?
+  }, [searchTerm, minimalPokemonData, fuse]);
+
+  console.log(allPokemonData);
 
   return (
     <>
       <h1>PokéDex</h1>
-      <SearchBar
-        setLimit={setLimit}
-        setOffset={setOffset}
-        setSearchTerm={setSearchTerm}
-      />
-      <CardContainer pokemonDataList={allPokemonData} />
-      {searchTerm === "" ? (
-        <PaginationControls>
-          <Button
-            onClick={() => {
-              window.scrollTo(0, 0);
-              setOffset((prev) => Math.max(0, prev - limit));
-            }}
-          >
-            {"<-"}
-          </Button>
-
-          <Button
-            onClick={() => {
-              window.scrollTo(0, 0);
-              setOffset((prev) => Math.min(1300, prev + limit));
-            }}
-          >
-            {"->"}
-          </Button>
-        </PaginationControls>
-      ) : null}
+      <SearchBar setSearchTerm={setSearchTerm} />
+      <InfiniteScroll
+        dataLength={allPokemonData.length} //This is important field to render the next data
+        next={URL !== null && fetchData}
+        hasMore={URL !== null}
+        loader={<Spinner />}
+        endMessage={
+          <p style={{ textAlign: "center", margin: "2rem" }}>
+            <b>Yay! You have seen them all!</b>
+          </p>
+        }
+      >
+        <CardContainer pokemonDataList={allPokemonData} />
+      </InfiniteScroll>
     </>
   );
 }

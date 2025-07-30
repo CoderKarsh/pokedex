@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import "../styles/SearchBar.css";
-import Button from "./Button";
 
-export default function SearchBar({ setSearchTerm, setLimit, setOffset }) {
+export default function SearchBar({ setSearchTerm }) {
   const [searchInput, setSearchInput] = useState("");
 
   // Debounce
@@ -14,34 +13,6 @@ export default function SearchBar({ setSearchTerm, setLimit, setOffset }) {
     return () => clearTimeout(debounceTimer);
   }, [searchInput, setSearchTerm]);
 
-  function handleSubmit(formData) {
-    const formOffset = parseInt(formData.get("offset-input"), 10);
-    const formLimit = parseInt(formData.get("limit-input"), 10);
-    const formName = formData.get("name-input");
-
-    if (formName !== null && formName.trim() !== "") {
-      setSearchTerm(formName);
-      setLimit(20);
-      setOffset(1);
-    } else {
-      setSearchTerm("");
-      setLimit(isNaN(formLimit) ? 20 : formLimit);
-      setOffset(isNaN(formOffset) ? 1 : formOffset);
-    }
-
-    if (formOffset <= 0) {
-      alert("Offset should be 1 or more");
-    }
-    if (formLimit <= 0) {
-      alert("No. of Cards should be 1 or more");
-    }
-  }
-
-  function handleReset() {
-    setSearchInput("");
-    setLimit(20);
-    setOffset(1);
-  }
   return (
     <>
       <div className="input-container">
@@ -55,30 +26,6 @@ export default function SearchBar({ setSearchTerm, setLimit, setOffset }) {
             onChange={(e) => setSearchInput(e.target.value)}
           />
         </div>
-        <form action={handleSubmit}>
-          <div className="input-label-container">
-            <label htmlFor="offset-input">Offset: </label>
-            <input
-              type="number"
-              name="offset-input"
-              id="offset-input"
-              // defaultValue={1}
-              placeholder="e.g., 1"
-            />
-          </div>
-          <div className="input-label-container">
-            <label htmlFor="limit-input">Cards: </label>
-            <input
-              type="number"
-              name="limit-input"
-              id="limit-input"
-              // defaultValue={20}
-              placeholder="e.g., 20"
-            />
-          </div>
-          <Button type="submit">Filter Pokemon</Button>
-          <Button onClick={handleReset}>Reset</Button>
-        </form>
       </div>
     </>
   );

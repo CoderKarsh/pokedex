@@ -7,8 +7,14 @@ function App() {
   return (
     <>
       <PokemonDataFetcher>
-        {(data, minimalData, fetchData) => (
-          <Main allPokemonData={data} minimalPokemonData={minimalData} fetchData={ fetchData } />
+        {(data, minimalData, URL, fetchData, resetData) => (
+          <Main
+            allPokemonData={data}
+            minimalPokemonData={minimalData}
+            fetchData={fetchData}
+            URL={URL}
+            resetData={resetData}
+          />
         )}
       </PokemonDataFetcher>
     </>
