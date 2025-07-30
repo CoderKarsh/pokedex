@@ -24,6 +24,5 @@ A PokéDex where you can filter Pokémon by their name, parts of their name, or 
 ## To-do:
 
 1. Dedicated page for each pokemon on clicking
-2. Pagination
-3. Infinite Scroll
-4. 
+2. Infinite Scroll
+3. 
