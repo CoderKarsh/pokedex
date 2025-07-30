@@ -53,7 +53,6 @@ function Main({
     // Adding fetchData as dependency renders it a lot. Why?
   }, [searchTerm, minimalPokemonData, fuse]);
 
-  console.log(allPokemonData);
 
   return (
     <>

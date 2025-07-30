@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import Spinner from "./Spinner.jsx";
 
 const BASE_URL = "https://pokeapi.co/api/v2/pokemon";
 
