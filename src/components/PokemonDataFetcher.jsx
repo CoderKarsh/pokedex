@@ -21,7 +21,6 @@ function PokemonDataFetcher({ children }) {
     }
   };
 
-  // Modify fetchData to accept a reset flag
   const fetchData = async (names = [], reset = false) => {
     setIsLoading(true);
     try {
