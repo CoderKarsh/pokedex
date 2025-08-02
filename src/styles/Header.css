@@ -1,0 +1,16 @@
+header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+header h1 {
+  margin: 0;
+  padding: 0;
+}
+
+header img {
+  aspect-ratio: 1 / 1;
+  width: 3.075rem;
+}

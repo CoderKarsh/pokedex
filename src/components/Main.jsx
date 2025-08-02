@@ -1,15 +1,22 @@
 import { useState, useMemo, useEffect, useRef } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
+import Button from "./Button.jsx";
+import { PiTriangleFill } from "react-icons/pi";
+import { IconContext } from "react-icons";
 import CardContainer from "./CardContainer.jsx";
 import SearchBar from "./SearchBar.jsx";
 import Spinner from "./Spinner.jsx";
 import Fuse from "fuse.js";
 import "../styles/Main.css";
-
+import Header from "./Header.jsx";
 const options = {
   includeScore: true,
   keys: ["name"],
 };
+
+function scrollTop() {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
 
 function Main({
   allPokemonData,
@@ -55,7 +62,7 @@ function Main({
 
   return (
     <>
-      <h1>PokéDex</h1>
+      <Header />
       <SearchBar setSearchTerm={setSearchTerm} />
       <InfiniteScroll
         dataLength={allPokemonData.length} //This is important field to render the next data
@@ -70,6 +77,10 @@ function Main({
       >
         <CardContainer pokemonDataList={allPokemonData} />
       </InfiniteScroll>
+      <Button className="scroll-to-top-button" onClick={scrollTop}>
+        <PiTriangleFill />
+        <p>To Top</p>
+      </Button>
     </>
   );
 }

@@ -42,17 +42,22 @@ export default function SearchBar({ setSearchTerm }) {
       }
     };
   }, []);
+
   return (
     <>
       <div
-        className={`input-container  ${!isSticky ? "sticky-shadow" : ""}`}
+        className={`input-container  ${!isSticky ? "sticky-bar" : ""}`}
         ref={searchBarRef}
       >
+        {
+          <h2
+            className={`${!isSticky ? "visible" : ""} pokeball `}
+          >P</h2>
+        }
         <div className="input-label-container">
           <IconContext.Provider value={{ className: `search-icon` }}>
             <PiMagnifyingGlassBold />
           </IconContext.Provider>
-          {/* <label htmlFor="name-input">Name: </label> */}
           <input
             type="text"
             name="name-input"
