@@ -1,7 +1,7 @@
 .input-container {
   z-index: 100;
   position: sticky;
-  padding: 1rem 3rem;
+  padding: 0.5rem 3rem;
   top: 0rem;
   margin: 0 auto;
   width: 100vw;
@@ -16,7 +16,7 @@
 }
 
 .sticky-bar {
-  padding: 1rem 3rem 1rem 3rem;
+  padding: 2rem 3rem 0.5rem 3rem;
   gap: 1rem;
   box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.05);
 }
